@@ -1,0 +1,35 @@
+<!--
+  Generated template for the PointsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+       Timestamp Check Points
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-card *ngFor="let item of points">
+ 
+      <ion-card-header>
+        <h1>Point on: {{item.key | date:'dd/MM/yyyy HH:mm:ss'}}</h1>
+      </ion-card-header>
+ 
+      <ion-card-content>
+        <p><strong>Latitude:</strong> {{ item.point.latitude }}</p>
+        <p><strong>Longitude:</strong> {{item.point.longitude}}</p>
+      </ion-card-content>
+ 
+    </ion-card>
+  </ion-list>
+</ion-content>
