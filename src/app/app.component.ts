@@ -5,13 +5,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { PointsPage } from '../pages/points/points';
+import { SettingsPage } from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = HomePage;
+  rootPage:any = SettingsPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
@@ -23,9 +24,10 @@ export class MyApp {
     });
 
     this.pages = [
+      { title: 'Settings', component: SettingsPage },
       { title: 'Home', component: HomePage },
       { title: 'Check Points', component: PointsPage },
-      { title: 'Settings', component: SettingsPage },
+      
       // { title: 'Login', component: LoginPage },
       // { title: 'Register', component: RegisterPage }
     ];

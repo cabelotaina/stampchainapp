@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PointsPage } from '../pages/points/points';
+import { SettingsPage } from '../pages/settings/settings';
 import { LocationTracker } from '../providers/location-tracker/location-tracker';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -20,6 +21,7 @@ import { DatePipe } from '@angular/common';
     MyApp,
     HomePage,
     PointsPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,7 @@ import { DatePipe } from '@angular/common';
     MyApp,
     HomePage,
     PointsPage,
+    SettingsPage
   ],
   providers: [
     LocationTracker,
