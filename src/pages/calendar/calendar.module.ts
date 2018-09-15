@@ -10,4 +10,13 @@ import { CalendarPage } from './calendar';
     IonicPageModule.forChild(CalendarPage),
   ],
 })
-export class CalendarPageModule {}
+export class CalendarPageModule {
+
+	constructor(){
+
+	}
+
+  public onDaySelect(day){
+  	console.log(day);
+  }
+}

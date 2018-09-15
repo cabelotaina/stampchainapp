@@ -1,0 +1,43 @@
+<ion-content padding>
+
+	<ion-item>
+	  <ion-label>Selecionar mês e ano</ion-label>
+	  <ion-datetime displayFormat="DDD - MM/YYYY" [(ngModel)]="filter"></ion-datetime>
+	</ion-item>
+
+	<ion-list radio-group [(ngModel)]="autoManufacturers">
+
+  <ion-list-header>
+    Selecione a Semana
+  </ion-list-header>
+
+  <ion-item>
+    <ion-label>Primeira</ion-label>
+    <ion-radio value="cord"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Segunda</ion-label>
+    <ion-radio value="duesenberg"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Terceira</ion-label>
+    <ion-radio value="hudson"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Quarta</ion-label>
+    <ion-radio value="packard"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Quinta</ion-label>
+    <ion-radio value="studebaker"></ion-radio>
+  </ion-item>
+
+</ion-list>
+
+
+
+</ion-content>

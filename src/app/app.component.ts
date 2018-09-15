@@ -3,17 +3,22 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+import { ControlPage } from '../pages/control/control';
 import { PointsPage } from '../pages/points/points';
 import { SettingsPage } from '../pages/settings/settings';
+import { AddCompanyPage } from '../pages/add-company/add-company';
+import { CalendarPage } from '../pages/calendar/calendar';
+import { HomePage } from '../pages/home/home';
+import { ListCompanyPage } from '../pages/list-company/list-company';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = SettingsPage;
+  rootPage:any = CalendarPage;
   pages: Array<{title: string, component: any}>;
+  devPages: Array<{title: string, component: any}>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -24,12 +29,19 @@ export class MyApp {
     });
 
     this.pages = [
-      { title: 'Settings', component: SettingsPage },
-      { title: 'Home', component: HomePage },
-      { title: 'Check Points', component: PointsPage },
-      
+      { title: 'Principal', component: HomePage },
+      { title: 'Relatório', component: CalendarPage },
+      { title: 'Configurações', component: SettingsPage },
+      { title: 'Listar Empresas', component: ListCompanyPage },
+      { title: 'Adicionar Empresa', component: AddCompanyPage },
+
       // { title: 'Login', component: LoginPage },
       // { title: 'Register', component: RegisterPage }
+    ];
+
+    this.devPages = [
+      { title: 'Controles', component: ControlPage },
+      { title: 'Pontos', component: PointsPage },
     ];
   }
 

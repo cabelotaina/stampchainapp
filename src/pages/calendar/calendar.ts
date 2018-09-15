@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CalendarPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {Page1} from '../tabs/page1';
+import {Page2} from '../tabs/page2';
+import {Page3} from '../tabs/page3';
+import {Page4} from '../tabs/page4';
 
 @IonicPage()
 @Component({
@@ -15,11 +12,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CalendarPage {
 
+  tab1Root = Page1;
+  tab2Root = Page2;
+  tab3Root = Page3;
+  tab4Root = Page4;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarPage');
+  }
+
+  public onDaySelect(day){
+  	console.log(day);
   }
 
 }

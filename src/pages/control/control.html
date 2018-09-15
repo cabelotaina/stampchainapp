@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+       Controles
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content padding>
+  <h3>Latitude: {{locationTracker.lat}}</h3>
+  <h3>Longitude: {{locationTracker.lng}}</h3>
+  <button ion-button full primary (click)="start()">Iniciar</button>
+  <button ion-button full primary (click)="stop()">Parar</button>
+  <button ion-button full primary (click)="reset()">Limpar</button>
+
+</ion-content>

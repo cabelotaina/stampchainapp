@@ -11,7 +11,7 @@ import { SettingsPage } from './settings';
   ],
 })
 export class SettingsPageModule {
-	public default = {staring: '00:00', finishing: '00:00'}
+	public default = {starting: '00:00', finishing: '00:00'}
 
 	constructor(){
 		console.log(this.default);
