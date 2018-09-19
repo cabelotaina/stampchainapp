@@ -47,7 +47,8 @@ export class DatabaseProvider {
     // Criando as tabelas
     db.sqlBatch([
       ['CREATE TABLE IF NOT EXISTS companies (id integer primary key AUTOINCREMENT NOT NULL, name TEXT, goJob TEXT, outJob TEXT, isMyActualJob TEXT)'],
-      ['CREATE TABLE IF NOT EXISTS address (id integer primary key AUTOINCREMENT NOT NULL, description TEXT, latitude TEXT, longitude TEXT, company_id integer, FOREIGN KEY(company_id) REFERENCES companies(id))']
+      ['CREATE TABLE IF NOT EXISTS address (id integer primary key AUTOINCREMENT NOT NULL, description TEXT, latitude TEXT, longitude TEXT, company_id integer, FOREIGN KEY(company_id) REFERENCES companies(id))'],
+      ['CREATE TABLE IF NOT EXISTS points (id integer primary key AUTOINCREMENT NOT NULL, timestamp TEXT, latitude TEXT, longitude TEXT)'],
     ])
       .then(() => console.log('Tabelas criadas'))
       .catch(e => console.error('Erro ao criar as tabelas', e));

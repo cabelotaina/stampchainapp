@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PointProvider, PointList } from '../../providers/point/point';
+import { PointProvider, Point } from '../../providers/point/point';
 
 /**
  * Generated class for the PointsPage page.
@@ -15,7 +15,7 @@ import { PointProvider, PointList } from '../../providers/point/point';
   templateUrl: 'points.html',
 })
 export class PointsPage {
-  public points: PointList[];
+  public points;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   	private pointProvider: PointProvider) {
@@ -23,8 +23,8 @@ export class PointsPage {
 
   ionViewDidEnter() {
     this.pointProvider.getAll()
-      .then((result) => {
-        this.points = result;
+      .then((points) => {
+        this.points = points;
       });
   }
 
