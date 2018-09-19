@@ -138,18 +138,28 @@ export class AddCompanyPage {
   	// log de compania
   	console.log('Insert Company: '+JSON.stringify(this.company, null, 1));
 
+  	if (this.company.isMyActualCompany){
+  		this.company.outJob = null;
+  	}
+
   	// log de endereços
   	console.log('Insert Addresses: '+JSON.stringify(this.addresses, null, 1));
   	// adidionar companias 
   	let company = this.companyProvider.insert(this.company);
 
-  	console.log(company);
+  	this.companyProvider.getLast().
+  	then((company_id: Number) => {
+  		// adicionar endereços
+	  	for (var i in this.addresses){
+	  		console.log(this.addresses);
 
-  	// adicionar endereços
-
-
-
-  	// limpar formulario
+	  		let address = this.addresses[i];
+	  		address.company_id = company_id;
+	  		this.addressProvider.insert(address);
+	  	}
+  	});
+  	
+	  // limpar formulario
   	// ir para a lista de empresas
 
   }

@@ -27,7 +27,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
  
-      //Criando o banco de dados
+      //Criando o banco de dados // teste if db is already open
       dbProvider.createDatabase()
         .then(() => {
           // fechando a SplashScreen somente quando o banco for criado

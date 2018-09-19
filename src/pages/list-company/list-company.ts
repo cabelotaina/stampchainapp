@@ -16,13 +16,41 @@ export class ListCompanyPage {
   	public addressProvider: AddressProvider) {
   	companyProvider.getAll()
   	.then((companies) => {
-  		console.log('Companies: '+JSON.stringify(companyProvider, null, 1));
+  		console.log('Companies: '+JSON.stringify(companies, null, 1));
       this.companies = companies;
-  	})
+
+      // fazer um for de companies e pegar os endereços das companias uma a uma
+
+      // addressProvider.getAll(compa)
+      // .then(addres)
+  	});
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ListCompanyPage');
+  }
+
+  public removeCompany(id){
+    console.log(id)
+
+    // remove company
+    this.companyProvider.remove(id);
+    // remove company addresses
+
+
+    // reload companies
+
+    this.companyProvider.getAll()
+    .then((companies) => {
+      console.log('Companies: '+JSON.stringify(companies, null, 1));
+      this.companies = companies;
+    });
+  }
+
+  public updateCompany(id) {
+    console.log(id);
+
+    // router leva o usuario apara a tela de atualizar a empresa e envia o id como parametro
   }
 
 }

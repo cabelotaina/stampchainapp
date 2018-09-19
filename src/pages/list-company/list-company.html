@@ -24,9 +24,15 @@
 
       <ion-row>
         <ion-col>
-          <button ion-button icon-start clear small>
+          <button color="danger" ion-button icon-start clear small (click)="removeCompany(item.id)">
             <ion-icon name="ios-trash-outline"></ion-icon>
             <div>Remover</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-start clear small (click)="updateCompany(item.id)">
+            <ion-icon name="ios-trash-outline"></ion-icon>
+            <div>Atualizar</div>
           </button>
         </ion-col>
       </ion-row>

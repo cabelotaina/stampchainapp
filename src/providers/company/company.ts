@@ -100,6 +100,25 @@ export class CompanyProvider {
       })
       .catch((e) => console.error(e));
   }
+
+  public getLast() {
+    return this.dbProvider.getDB()
+      .then((db: SQLiteObject) => {
+        let sql = 'SELECT last_insert_rowid() as id;';
+
+        return db.executeSql(sql, [])
+          .then((data: any) => {
+            if (data.rows.length > 0) {
+              let id:Number;
+              console.log('Ponte Preta: '+JSON.stringify( data.rows.item(0).id, null, 1));
+              id = data.rows.item(0).id;
+              return id;
+            }
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  }
 }
 
 export class Company {

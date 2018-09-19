@@ -89,7 +89,7 @@
     <plugin name="cordova-plugin-calendar" spec="^5.1.2">
         <variable name="CALENDAR_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <allow-navigation href="http://192.168.0.3:8100" sessionid="27e51668" />
+    <allow-navigation href="http://192.168.0.3:8100" sessionid="cc425cb7" />
     <engine name="ios" spec="^4.5.4" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="^7.1.1" />
 </widget>
