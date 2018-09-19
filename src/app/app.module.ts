@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -26,6 +26,13 @@ import { PointProvider } from '../providers/point/point';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
+import { CompanyProvider } from '../providers/company/company';
+
+import { SQLite } from '@ionic-native/sqlite';
+import { DatabaseProvider } from '../providers/database/database';
+import { AddressProvider } from '../providers/address/address';
+
+
 
 //import { CalendarModule } from 'ionic3-calendar';
 
@@ -47,7 +54,10 @@ import { DatePipe } from '@angular/common';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     //CalendarModule,
   ],
   bootstrap: [IonicApp],
@@ -74,6 +84,11 @@ import { DatePipe } from '@angular/common';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PointProvider,
     DatePipe,
+    CompanyProvider,
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    SQLite,
+    DatabaseProvider,
+    AddressProvider
   ]
 })
 export class AppModule {}

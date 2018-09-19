@@ -54,11 +54,10 @@ export class LocationTracker {
 	  // Turn ON the background-geolocation system.
 	  this.backgroundGeolocation.start();
 	 
-	 
 	  // Foreground Tracking
 	 
 		let options = {
-		  frequency: 3000,
+		  frequency: 1000, // ver se vai ser 1m ou 2m
 		  enableHighAccuracy: true
 		};
 		 
@@ -66,7 +65,6 @@ export class LocationTracker {
 		 
 		  console.log(position);
 		 
-		  // Run update inside of Angular's zone
 		  this.zone.run(() => {
 		  	this.point = new Point();
 	      this.point.latitude = this.lat = position.coords.latitude;

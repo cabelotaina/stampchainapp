@@ -1,25 +1,31 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.25;
 
 contract TimeCheck{
-	address internal _owner = msg.sender;
+	address private _owner = msg.sender;
+	string private worker_hash;
 
-	string[] internal dayWorkHistory;
+	mapping (uint256 => string) private dayWorkHistory;
 
-	function TimeCheck(string hash){
-		_hash = hash;
+	constructor(string worker_hash) public {
+		// user send your IPFS hash with your information if He want
+		_worker_hash = worker_hash;
 	}
 
-	modifier onlyBy(address _account) {
-		require(msg.sender == _account);
-		_;
+	modifier onlyOwner {
+	    if(msg.sender != _owner) throw;
+	    _
 	}
 
-	function addDayOfWork(string _hash) onlyBy(_owner) {
-		dayWorkHistory.push(hash);
+	function addDayOfWork(string _hash) onlyOwner public {
+	  dayWorkHistory[timeCall()] = _hash;
 	}
 
-	function getDayWorkHistoryAll() onlyBy(_owner) returns (string[]) {
+	function getDayWorkHistoryAll() onlyOwner public returns (string[]) {
 		return dayWorkHistory;
 	}
-	
+
+  function timeCall() onlyOwner private returns (uint256){
+    return now;
+  }
+
 }

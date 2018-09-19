@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { CompanyProvider, Company } from '../../providers/company/company'
+import { AddressProvider, Address } from '../../providers/address/address'
 
 declare var google;
 
@@ -19,16 +21,20 @@ export class AddCompanyPage {
 	private autocompleteItems;
 	private geocoder;
 	private markers;
-	public company = { 
-		name: 'IBM', 
-		in: '2018-12-10', 
-		out: '', 
-		isMyJob: true, 
-		addresses: [{description: 'Servidão Aroeiras do Gramal, 650, Campeche, Florianôpolis, SC', latitude: '', longitude: ''}]
+	public company: Company = { 
+		id: 0,
+		name: '', 
+		goJob: '', 
+		outJob: '', 
+		isMyActualJob: false
 	};
 
+	public addresses = Array<Address>();
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-  	private geolocation: Geolocation, private zone: NgZone) {
+  	private geolocation: Geolocation, private zone: NgZone, private companyProvider: CompanyProvider,
+  	private addressProvider: AddressProvider) {
 		this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
 		this.autocomplete = { input: '' };
 		this.autocompleteItems = [];
@@ -107,28 +113,46 @@ export class AddCompanyPage {
 	          lng: results[0].geometry.location.lng
 	      };
 
-	      this.company.addresses.push({
+	      this.addresses.push({
+	      	id: null,
 	      	description: item.description,
 	      	latitude: results[0].geometry.location.lat(),
-	      	longitude: results[0].geometry.location.lng()
+	      	longitude: results[0].geometry.location.lng(),
+	      	company_id: null
 	      })
-	      let marker = new google.maps.Marker({
-	        position: results[0].geometry.location,
-	        map: this.map,
-	      });
-	      this.markers.push(marker);
-	      this.map.setCenter(results[0].geometry.location);
+
+	      // mapa que estava sendo usado
+
+	      // let marker = new google.maps.Marker({
+	      //   position: results[0].geometry.location,
+	      //   map: this.map,
+	      // });
+	      // this.markers.push(marker);
+	      // this.map.setCenter(results[0].geometry.location);
 	    }
 	  })
   }
 
   addCompany(){
-  	console.log(this.company);
+
+  	// log de compania
+  	console.log('Insert Company: '+JSON.stringify(this.company, null, 1));
+
+  	// log de endereços
+
+  	// adidionar companias 
+  	this.companyProvider.insert(this.company);
+
+  	// adicionar endereços
+
+  	// limpar formulario
+  	// ir para a lista de empresas
+
   }
 
   removeAddress(address){
-  	let index = this.company.addresses.findIndex(x => x.description === address.description);
-  	this.company.addresses.splice(index, 1);
+  	let index = this.addresses.findIndex(x => x.description === address.description);
+  	this.addresses.splice(index, 1);
   }
 
 }

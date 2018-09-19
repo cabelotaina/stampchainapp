@@ -14,8 +14,10 @@
 <ion-grid>
   <ion-row   justify-content-center text-center>
     <ion-col col-4>
-    	<ion-icon name="ios-clock-outline"></ion-icon>
-    	<ion-label >Relatório</ion-label>
+      <a (click)="goTo(calendar)">
+      	<ion-icon name="ios-clock-outline"></ion-icon>
+      	<ion-label >Relatório</ion-label>
+      </a>
     </ion-col>
     <ion-col>
     	<ion-icon name="ios-hammer-outline"></ion-icon>

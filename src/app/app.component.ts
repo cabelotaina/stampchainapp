@@ -10,22 +10,33 @@ import { AddCompanyPage } from '../pages/add-company/add-company';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { HomePage } from '../pages/home/home';
 import { ListCompanyPage } from '../pages/list-company/list-company';
+import { DatabaseProvider } from '../providers/database/database'
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = CalendarPage;
+  rootPage:any = HomePage;
   pages: Array<{title: string, component: any}>;
   devPages: Array<{title: string, component: any}>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, dbProvider: DatabaseProvider) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      splashScreen.hide();
+ 
+      //Criando o banco de dados
+      dbProvider.createDatabase()
+        .then(() => {
+          // fechando a SplashScreen somente quando o banco for criado
+          splashScreen.hide();
+        })
+        .catch(() => {
+          // ou se houver erro na criação do banco
+          splashScreen.hide();
+        });
     });
 
     this.pages = [
