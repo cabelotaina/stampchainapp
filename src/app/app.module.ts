@@ -32,6 +32,10 @@ import { SQLite } from '@ionic-native/sqlite';
 import { DatabaseProvider } from '../providers/database/database';
 import { AddressProvider } from '../providers/address/address';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 
 //import { CalendarModule } from 'ionic3-calendar';

@@ -96,7 +96,14 @@ export class PointProvider {
 
 
   public reset() {
+    return this.dbProvider.getDB()
+      .then((db: SQLiteObject) => {
+        let sql = 'DELETE FROM points; VACUUM;';
 
+        return db.executeSql(sql)
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
   }
 
   public save() {
