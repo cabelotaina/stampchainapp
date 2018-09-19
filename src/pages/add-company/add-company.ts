@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { CompanyProvider, Company } from '../../providers/company/company'
-import { AddressProvider, Address } from '../../providers/address/address'
+import { CompanyProvider, Company } from '../../providers/company/company';
+import { AddressProvider, Address } from '../../providers/address/address';
 
 declare var google;
 
@@ -139,11 +139,15 @@ export class AddCompanyPage {
   	console.log('Insert Company: '+JSON.stringify(this.company, null, 1));
 
   	// log de endereços
-
+  	console.log('Insert Addresses: '+JSON.stringify(this.addresses, null, 1));
   	// adidionar companias 
-  	this.companyProvider.insert(this.company);
+  	let company = this.companyProvider.insert(this.company);
+
+  	console.log(company);
 
   	// adicionar endereços
+
+
 
   	// limpar formulario
   	// ir para a lista de empresas
