@@ -23,7 +23,7 @@ export class CompanyProvider {
   public update(company: Company) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'update companies set name = ?, in = ?, outJob = ?, isMyActualJob = ?';
+        let sql = 'update companies set name = ?,goJob = ?, outJob = ?, isMyActualJob = ?';
         let data = [company.name, company.goJob, company.outJob, company.isMyActualJob];
 
         return db.executeSql(sql, data)
@@ -86,12 +86,12 @@ export class CompanyProvider {
         return db.executeSql(sql, data)
           .then((data: any) => {
             if (data.rows.length > 0) {
-              let companys: any[] = [];
+              let companies: any[] = [];
               for (var i = 0; i < data.rows.length; i++) {
                 var company = data.rows.item(i);
-                companys.push(company);
+                companies.push(company);
               }
-              return companys;
+              return companies;
             } else {
               return [];
             }
