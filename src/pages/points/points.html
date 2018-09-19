@@ -22,12 +22,12 @@
     <ion-card *ngFor="let item of points">
  
       <ion-card-header>
-        <h1>Point on: {{item.key | date:'dd/MM/yyyy HH:mm:ss'}}</h1>
+        <h1>Point on: {{item.timestamp | date:'dd/MM/yyyy HH:mm:ss'}}</h1>
       </ion-card-header>
  
       <ion-card-content>
-        <p><strong>Latitude:</strong> {{ item.point.latitude }}</p>
-        <p><strong>Longitude:</strong> {{item.point.longitude}}</p>
+        <p><strong>Latitude:</strong> {{ item.latitude }}</p>
+        <p><strong>Longitude:</strong> {{item.longitude}}</p>
       </ion-card-content>
  
     </ion-card>

@@ -93,11 +93,20 @@ export class PointProvider {
       })
       .catch((e) => console.error(e));
   }
+
+
+  public reset() {
+
+  }
+
+  public save() {
+    
+  }
 }
 
 export class Point {
   id: Number;
-  timestamp: String;
-  latitude: String;
-  longitude: String;
+  timestamp: Number;
+  latitude: Number;
+  longitude: Number;
 }

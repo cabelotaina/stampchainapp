@@ -29,7 +29,7 @@ export class LocationTracker {
 	    stationaryRadius: 20,
 	    distanceFilter: 10,
 	    debug: true,
-	    interval: 2000
+	    interval: 1000
 	  };
 	 
 	  this.backgroundGeolocation.configure(config).subscribe((location) => {
@@ -39,6 +39,7 @@ export class LocationTracker {
 	    // Run update inside of Angular's zone
 	    this.zone.run(() => {
 	    	this.point = new Point();
+	    	this.point.timestamp = Date.now();
 	      this.point.latitude = this.lat = location.latitude;
 	      this.point.longitude = this.lng = location.longitude;
 
@@ -67,6 +68,7 @@ export class LocationTracker {
 		 
 		  this.zone.run(() => {
 		  	this.point = new Point();
+		  	this.point.timestamp = Date.now();
 	      this.point.latitude = this.lat = position.coords.latitude;
 	      this.point.longitude = this.lng = position.coords.longitude;
 
