@@ -3,7 +3,7 @@
     <name>worker</name>
     <description>A beta dev app</description>
     <author email="cabelotaina@gmail.com" href="http://github.com/cabelotaina">Maurilio Atila Carvalho de Santana</author>
-    <content original-src="index.html" src="http://192.168.0.3:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -86,10 +86,8 @@
         <variable name="ALWAYS_USAGE_DESCRIPTION" value="This app always requires location tracking" />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.3.2" />
+    <engine name="ios" spec="^4.5.4" />
     <plugin name="cordova-plugin-calendar" spec="^5.1.2">
         <variable name="CALENDAR_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <allow-navigation href="http://192.168.0.3:8100" sessionid="cc425cb7" />
-    <engine name="ios" spec="^4.5.4" />
-    <engine name="android" spec="^7.1.1" />
 </widget>

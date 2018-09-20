@@ -18,6 +18,7 @@ import { Page1 } from '../pages/tabs/page1';
 import { Page2 } from '../pages/tabs/page2';
 import { Page3 } from '../pages/tabs/page3';
 import { Page4 } from '../pages/tabs/page4';
+import { UpdateCompanyPage } from '../pages/update-company/update-company';
 
 
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
@@ -77,7 +78,8 @@ registerLocaleData(localePt);
     Page1,
     Page2,
     Page3,
-    Page4
+    Page4,
+    UpdateCompanyPage
   ],
   providers: [
     LocationTracker,

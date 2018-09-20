@@ -110,7 +110,6 @@ export class CompanyProvider {
           .then((data: any) => {
             if (data.rows.length > 0) {
               let id:Number;
-              console.log('Ponte Preta: '+JSON.stringify( data.rows.item(0).id, null, 1));
               id = data.rows.item(0).id;
               return id;
             }

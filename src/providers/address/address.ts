@@ -10,7 +10,7 @@ export class AddressProvider {
   public insert(address: Address) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'insert into addresses (description, latitude, longitude) values (?, ?, ?)';
+        let sql = 'insert into address (description, latitude, longitude) values (?, ?, ?)';
         let data = [address.description, address.latitude, address.longitude];
 
         return db.executeSql(sql, data)
@@ -22,7 +22,7 @@ export class AddressProvider {
   public update(address: Address) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'update adresses set description = ?, in = ?, longitude = ?';
+        let sql = 'update address set description = ?, in = ?, longitude = ?';
         let data = [address.description, address.latitude, address.longitude];
 
         return db.executeSql(sql, data)
@@ -34,7 +34,7 @@ export class AddressProvider {
   public remove(id: number) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'delete from adresses where id = ?';
+        let sql = 'delete from address where id = ?';
         let data = [id];
 
         return db.executeSql(sql, data)
@@ -46,7 +46,7 @@ export class AddressProvider {
   public get(id: number) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'select * from adresses where id = ?';
+        let sql = 'select * from address where id = ?';
         let data = [id];
 
         return db.executeSql(sql, data)
@@ -72,7 +72,7 @@ export class AddressProvider {
   public getAll(description: string = null) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'SELECT * from adresses';
+        let sql = 'SELECT * from address';
         var data: any[];
 
         // filtrando pelo nome
@@ -98,6 +98,32 @@ export class AddressProvider {
       })
       .catch((e) => console.error(e));
   }
+
+
+  public getAllByCompany(company_id: number) {
+    return this.dbProvider.getDB()
+      .then((db: SQLiteObject) => {
+        let sql = 'SELECT * from address WHERE company_id = ?';
+        var data = [company_id];
+
+        return db.executeSql(sql, data)
+          .then((data: any) => {
+            if (data.rows.length > 0) {
+              let addresss: any[] = [];
+              for (var i = 0; i < data.rows.length; i++) {
+                var address = data.rows.item(i);
+                addresss.push(address);
+              }
+              return addresss;
+            } else {
+              return [];
+            }
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  }
+
 }
 
 export class Address {
