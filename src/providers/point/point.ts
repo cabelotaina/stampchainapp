@@ -106,6 +106,36 @@ export class PointProvider {
       .catch((e) => console.error(e));
   }
 
+
+  /**
+  * https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+  * Calculates the haversine distance between point A, and B.
+  * @param {number[]} latlngA [lat, lng] point A
+  * @param {number[]} latlngB [lat, lng] point B
+  * @param {boolean} isMiles If we are using miles, else km.
+  */
+
+  public haversineDistance(latlngA, latlngB, isMiles) {
+    const squared = x => x * x;
+    const toRad = x => (x * Math.PI) / 180;
+    const R = 6371; // Earth’s mean radius in km
+
+    const dLat = toRad(latlngB[0] - latlngA[0]);
+    const dLon = toRad(latlngB[1] - latlngA[1]);
+
+    const dLatSin = squared(Math.sin(dLat / 2));
+    const dLonSin = squared(Math.sin(dLon / 2));
+
+    const a = dLatSin +
+              (Math.cos(toRad(latlngA[0])) * Math.cos(toRad(latlngB[0])) * dLonSin);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let distance = R * c;
+
+    if (isMiles) distance /= 1.609344;
+
+    return distance;
+  }
+
   public save() {
     
   }

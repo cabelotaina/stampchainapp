@@ -18,7 +18,11 @@ import { Page1 } from '../pages/tabs/page1';
 import { Page2 } from '../pages/tabs/page2';
 import { Page3 } from '../pages/tabs/page3';
 import { Page4 } from '../pages/tabs/page4';
-import { UpdateCompanyPage } from '../pages/update-company/update-company';
+
+// problemas para criar o update company
+// vou ter que colocar o endereço com company.addresses = JSON.stringify(addresses)
+// recuperar com company.addresses = JSON.parse(addresses)
+// import { UpdateCompanyPage } from '../pages/update-company/update-company';
 
 
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
@@ -35,6 +39,7 @@ import { AddressProvider } from '../providers/address/address';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { Web3Provider } from '../providers/web3/web3';
 
 registerLocaleData(localePt);
 
@@ -79,7 +84,7 @@ registerLocaleData(localePt);
     Page2,
     Page3,
     Page4,
-    UpdateCompanyPage
+    // UpdateCompanyPage
   ],
   providers: [
     LocationTracker,
@@ -94,7 +99,8 @@ registerLocaleData(localePt);
     {provide: LOCALE_ID, useValue: 'pt-BR'},
     SQLite,
     DatabaseProvider,
-    AddressProvider
+    AddressProvider,
+    Web3Provider
   ]
 })
 export class AppModule {}
