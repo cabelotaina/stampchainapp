@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import 'rxjs/add/operator/filter';
 
@@ -21,61 +21,89 @@ export class LocationTracker {
   }
  
 	startTracking() {
-	 
-	  // Background Tracking
-	 
-	  let config = {
-	    desiredAccuracy: 0,
-	    stationaryRadius: 20,
-	    distanceFilter: 10,
-	    debug: true,
-	    interval: 1000
-	  };
-	 
-	  this.backgroundGeolocation.configure(config).subscribe((location) => {
-	 
-	    console.log('BackgroundGeolocation:  ' + location.latitude + ',' + location.longitude);
-	 
-	    // Run update inside of Angular's zone
-	    this.zone.run(() => {
-	    	this.point = new Point();
-	    	this.point.timestamp = Date.now();
-	      this.point.latitude = this.lat = location.latitude;
-	      this.point.longitude = this.lng = location.longitude;
 
-	      this.pointProvider.insert(this.point);
-	    });
+		// var lastUpdateTime, minFrequency = 60000;
 	 
-	  }, (err) => {
+	 //  // Background Tracking
 	 
-	    console.log(err);
-	 
-	  });
-	 
-	  // Turn ON the background-geolocation system.
-	  this.backgroundGeolocation.start();
-	 
-	  // Foreground Tracking
-	 
-		let options = {
-		  frequency: 1000, // ver se vai ser 1m ou 2m
-		  enableHighAccuracy: true
-		};
-		 
-		this.watch = this.geolocation.watchPosition(options).filter((p: any) => p.code === undefined).subscribe((position: Geoposition) => {
-		 
-		  console.log(position);
-		 
-		  this.zone.run(() => {
-		  	this.point = new Point();
-		  	this.point.timestamp = Date.now();
-	      this.point.latitude = this.lat = position.coords.latitude;
-	      this.point.longitude = this.lng = position.coords.longitude;
+		// const config: BackgroundGeolocationConfig = {
+  //           desiredAccuracy: 0,
+  //           stationaryRadius: 0,
+  //           distanceFilter: 0,
+  //           startOnBoot: true, // android only
+  //           pauseLocationUpdates: false,
+  //           debug: true, //  enable this hear sounds for background-geolocation life-cycle.
+  //           stopOnTerminate: false, // enable this to clear background location settings when the app terminates
+  //           url: 'https://webhook.site/31d5edf7-b917-4868-9138-f06c452f1b48',
+  //           // saveBatteryOnBackground: true
+  //   };
 
-	      this.pointProvider.insert(this.point);
-		  });
+	 
+	 //  this.backgroundGeolocation.configure(config)
+	 //  .subscribe((location: BackgroundGeolocationResponse) => {
+	 
+	 //    console.log('BackgroundGeolocation:  ' + JSON.stringify(location, null, 1));
+
+		// 	var now = new Date();  //https://stackoverflow.com/questions/35294154/cordova-geolocation-watchposition-frequency-is-higher-than-the-options-allow-it
+	 //    if(lastUpdateTime && now.getTime() - lastUpdateTime.getTime() < minFrequency){
+	 //        console.log("Ignoring position update");
+	 //        return;
+	 //    }
+	 //    lastUpdateTime = now;
+	 
+	 //    // Run update inside of Angular's zone
+	 //    this.zone.run(() => {
+	 //    	this.point = new Point();
+	 //    	this.point.timestamp = Date.now();
+	 //      this.point.latitude = this.lat = location.latitude;
+	 //      this.point.longitude = this.lng = location.longitude;
+	 //      this.point.type = 'Background';
+
+	 //      this.pointProvider.insert(this.point);
+	 //      this.backgroundGeolocation.finish();
+	 //      // this.backgroundGeolocation.start();
+	 //    });
+	 
+	 //  }, (err) => {
+	 
+	 //    console.log(err);
+	 
+	 //  });
+	 
+	 //  // Turn ON the background-geolocation system.
+	 //  this.backgroundGeolocation.start();
+	 
+	 //  // Foreground Tracking
+	 
+		// let options = {
+		//   frequency: 60000, 
+		//   enableHighAccuracy: true,
+		// };
+
+		
+
 		 
-		});
+		// this.watch = this.geolocation.watchPosition(options)
+		// .filter((p: any) => p.code === undefined)
+		// .subscribe((position: Geoposition) => {
+		 
+		// 	var now = new Date();  //https://stackoverflow.com/questions/35294154/cordova-geolocation-watchposition-frequency-is-higher-than-the-options-allow-it
+	 //    if(lastUpdateTime && now.getTime() - lastUpdateTime.getTime() < minFrequency){
+	 //        console.log("Ignoring position update");
+	 //        return;
+	 //    }
+	 //    lastUpdateTime = now;
+		 
+		//   this.zone.run(() => {
+		//   	this.point = new Point();
+		//   	this.point.timestamp = Date.now();
+	 //      this.point.latitude = this.lat = position.coords.latitude;
+	 //      this.point.longitude = this.lng = position.coords.longitude;
+	 //      this.point.type = 'Foreground'
+	 //      this.pointProvider.insert(this.point);
+		//   });
+		 
+		// });
 	 
 	}
  
@@ -87,5 +115,6 @@ export class LocationTracker {
 	  this.watch.unsubscribe();
 	 
 	}
- 
+
+
 }

@@ -6,9 +6,6 @@
     <ion-title>
       Adicionar Empresa
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="ios-compass-outline"></ion-icon> Onde estou?</button>
-    </ion-buttons> 
   </ion-navbar>
 </ion-header>
  
@@ -38,15 +35,15 @@
 
   </ion-list>
 
-<ion-list>
-  <ion-item *ngFor="let address of addresses">
-    {{address.description}}
-    <button ion-button outline item-end icon-start color="danger" (click)="removeAddress(address)">
-      <ion-icon name="trash"></ion-icon>
-      Remover
-    </button>
-  </ion-item>
-</ion-list>
+	<ion-list>
+	  <ion-item *ngFor="let address of addresses">
+	    {{address.description}}
+	    <button ion-button outline item-end icon-start color="danger" (click)="removeAddress(address)">
+	      <ion-icon name="trash"></ion-icon>
+	      Remover
+	    </button>
+	  </ion-item>
+	</ion-list>
 
 	<ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="Buscar pelo endereço da empresa"></ion-searchbar>
 	<ion-list [hidden]="autocompleteItems.length == 0">
@@ -54,10 +51,6 @@
 	    {{ item.description }}
 	  </ion-item>
 	</ion-list>
-  <!-- <div #map id="map"></div> -->
 
-  <button ion-button full color="primary" (click)="addCompany()">Gravar</button>
-
-
-
+  <button ion-button full color="primary" (click)="addCompany(list_page)">Gravar</button>
 </ion-content>

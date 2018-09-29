@@ -13,8 +13,8 @@ export class DatabaseProvider {
    */
   public getDB() {
     this.db_config = {
-      name: 'products.db',
-       key: '.!I<yr&{UN0OgSM;',
+      name: 'worker.db',
+      key: '.!I<yr&{UN0OgSM;',
       location: 'default'
     }
     // delete db
@@ -33,7 +33,7 @@ export class DatabaseProvider {
         this.createTables(db);
 
         // Inserindo dados padrão
-        this.insertDefaultItems(db);
+        //this.insertDefaultItems(db);
 
       })
       .catch(e => console.log(e));
@@ -46,9 +46,8 @@ export class DatabaseProvider {
   private createTables(db: SQLiteObject) {
     // Criando as tabelas
     db.sqlBatch([
-      ['CREATE TABLE IF NOT EXISTS companies (id integer primary key AUTOINCREMENT NOT NULL, name TEXT, goJob TEXT, outJob TEXT, isMyActualJob TEXT)'],
-      ['CREATE TABLE IF NOT EXISTS address (id integer primary key AUTOINCREMENT NOT NULL, description TEXT, latitude TEXT, longitude TEXT, company_id integer, FOREIGN KEY(company_id) REFERENCES companies(id))'],
-      ['CREATE TABLE IF NOT EXISTS points (id integer primary key AUTOINCREMENT NOT NULL, timestamp TEXT, latitude TEXT, longitude TEXT)'],
+      ['CREATE TABLE IF NOT EXISTS companies (id integer primary key AUTOINCREMENT NOT NULL, name TEXT, goJob TEXT, outJob TEXT, isMyActualJob TEXT, addresses TEXT)'],
+      ['CREATE TABLE IF NOT EXISTS points (id integer primary key AUTOINCREMENT NOT NULL, timestamp TEXT, latitude TEXT, longitude TEXT, type TEXT)'],
     ])
       .then(() => console.log('Tabelas criadas'))
       .catch(e => console.error('Erro ao criar as tabelas', e));
@@ -73,6 +72,6 @@ export class DatabaseProvider {
 
       }
     })
-    .catch(e => console.error('Erro ao consultar a qtd de categorias', e));
+    .catch(e => console.error('Erro ao consultar a qtd de endereços', e));
   }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CalendarPage } from './calendar';
 
+
 @NgModule({
   declarations: [
     CalendarPage,
@@ -15,8 +16,4 @@ export class CalendarPageModule {
 	constructor(){
 
 	}
-
-  public onDaySelect(day){
-  	console.log(day);
-  }
 }

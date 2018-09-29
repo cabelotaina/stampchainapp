@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CompanyProvider, Company } from '../../providers/company/company'
-import { AddressProvider, Address } from '../../providers/address/address'
+// import { CompanyProvider, Company } from '../../providers/company/company'
+// in the future add company type
+import { CompanyProvider } from '../../providers/company/company'
+import { AddCompanyPage } from '../../pages/add-company/add-company'
 
 @IonicPage()
 @Component({
@@ -10,41 +12,18 @@ import { AddressProvider, Address } from '../../providers/address/address'
 })
 export class ListCompanyPage {
 
+  // public companies = [Company];
   public companies;
+  public add_company;
+  public addresses;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public companyProvider: CompanyProvider,
-  	public addressProvider: AddressProvider) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, 
+    private companyProvider: CompanyProvider ) {
+    this.add_company = AddCompanyPage;
   	companyProvider.getAll()
   	.then((companies) => {
   		console.log('Companies: '+JSON.stringify(companies, null, 1));
       this.companies = companies;
-      // for (var i in companies){
-      //   companies[i].addresses
-      //   .then(data => {
-      //     console.log('Data value: '+data)
-      //     if (data !== 'undefined'){
-      //       if (data.rows.length > 0) {
-      //         let addresses: any[] = [];
-      //         for (var i = 0; i < data.rows.length; i++) {
-      //           var address = data.rows.item(i);
-
-      //           addresses.push(address);
-      //         }
-      //         console.log('Endereços: '+addresses)
-      //         companies[i].addresses = addresses;
-      //       } else {
-      //         companies[i].addresses = [];
-      //       }
-      //     } else {
-      //        companies[i].addresses = [];
-      //     }
-      //   })
-      // }
-
-      // fazer um for de companies e pegar os endereços das companias uma a uma
-
-      // addressProvider.getAll(compa)
-      // .then(addres)
   	});
   }
 
@@ -53,14 +32,7 @@ export class ListCompanyPage {
   }
 
   public removeCompany(id){
-    console.log(id)
-
-    // remove company
     this.companyProvider.remove(id);
-    // remove company addresses
-
-
-    // reload companies
 
     this.companyProvider.getAll()
     .then((companies) => {
@@ -69,10 +41,13 @@ export class ListCompanyPage {
     });
   }
 
+  open(url){
+    this.navCtrl.setRoot(url);
+  }
+
   public updateCompany(id) {
     console.log(id);
-
-    // router leva o usuario apara a tela de atualizar a empresa e envia o id como parametro
+    // this.navCtrl.push();
   }
 
 }

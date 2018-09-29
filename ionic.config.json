@@ -1,7 +1,11 @@
 {
-  "name": "ionic2-background-geolocation",
+  "name": "work",
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [{
+    "path": "/api",
+    "proxyUrl": "https://api.service.com"
+  }]
 }

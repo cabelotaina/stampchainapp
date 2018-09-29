@@ -10,26 +10,27 @@ export class PointProvider {
   public insert(point: Point) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        console.log('Point Service: '+JSON.stringify(point, null, 1));
-        let sql = 'insert into points (timestamp, latitude, longitude) values (?, ?, ?)';
-        let data = [point.timestamp, point.latitude, point.longitude];
+        console.log('Formated date: '+new Date());
+        console.log('New point: '+JSON.stringify(point, null, 1));
+        let sql = 'insert into points (timestamp, latitude, longitude, type) values (?, ?, ?, ?)';
+        let data = [point.timestamp, point.latitude, point.longitude, point.type];
 
         return db.executeSql(sql, data)
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
   public update(point: Point) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'update points set timestamp = ?, latitude = ?, longitude = ?';
-        let data = [point.timestamp, point.latitude, point.longitude];
+        let sql = 'update points set timestamp = ?, latitude = ?, longitude = ?, type = ?';
+        let data = [point.timestamp, point.latitude, point.longitude, point.type];
 
         return db.executeSql(sql, data)
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
   public remove(id: number) {
@@ -39,9 +40,9 @@ export class PointProvider {
         let data = [id];
 
         return db.executeSql(sql, data)
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
   public get(id: number) {
@@ -59,15 +60,16 @@ export class PointProvider {
               point.timestamp = item.timestamp;
               point.latitude = item.latitude;
               point.longitude = item.longitude;
+              point.type = item.type;
 
               return point;
             }
 
             return null;
           })
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
   public getAll() {
@@ -89,9 +91,9 @@ export class PointProvider {
               return [];
             }
           })
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
 
@@ -101,9 +103,9 @@ export class PointProvider {
         let sql = 'DELETE FROM points; VACUUM;';
 
         return db.executeSql(sql)
-          .catch((e) => console.error(e));
+          .catch((e) => console.error(JSON.stringify(e, null, 1)));
       })
-      .catch((e) => console.error(e));
+      .catch((e) => console.error(JSON.stringify(e, null, 1)));
   }
 
 
@@ -146,4 +148,5 @@ export class Point {
   timestamp: Number;
   latitude: Number;
   longitude: Number;
+  type: String;
 }

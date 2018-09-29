@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adicionar Carteira</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-item>
+        <ion-icon name="ios-cash-outline" item-start large></ion-icon>
+        <h2>Crie sua carteira</h2>
+    </ion-item>
+  </ion-card>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Senha</ion-label>
+      <ion-input type="password" placeholder="da carteira" [(ngModel)]="content.password1"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Repita a senha</ion-label>
+      <ion-input type="password" placeholder="da carteira" [(ngModel)]="content.password2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Palavra geradora</ion-label>
+      <ion-input type="text" placeholder="da seed" [(ngModel)]="content.word"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button full color="primary" (click)="addWallet()">Gravar</button>
+
+</ion-content>

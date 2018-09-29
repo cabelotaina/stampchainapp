@@ -11,8 +11,8 @@ export class CompanyProvider {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         console.log('Company Service: '+JSON.stringify(company, null, 1));
-        let sql = 'insert into companies (name, goJob, outJob, isMyActualJob) values (?, ?, ?, ?)';
-        let data = [company.name, company.goJob, company.outJob, company.isMyActualJob];
+        let sql = 'insert into companies (name, goJob, outJob, isMyActualJob, addresses) values (?, ?, ?, ?, ?)';
+        let data = [company.name, company.goJob, company.outJob, company.isMyActualJob, company.addresses];
 
         return db.executeSql(sql, data)
           .catch((e) => console.error(e));
@@ -23,8 +23,8 @@ export class CompanyProvider {
   public update(company: Company) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'update companies set name = ?,goJob = ?, outJob = ?, isMyActualJob = ?';
-        let data = [company.name, company.goJob, company.outJob, company.isMyActualJob];
+        let sql = 'update companies set name = ?,goJob = ?, outJob = ?, isMyActualJob = ?, addresses = ?';
+        let data = [company.name, company.goJob, company.outJob, company.isMyActualJob, company.addresses];
 
         return db.executeSql(sql, data)
           .catch((e) => console.error(e));
@@ -60,6 +60,7 @@ export class CompanyProvider {
               company.goJob = item.goJob;
               company.outJob = item.outJob;
               company.isMyActualJob = item.isMyActualJob;
+              company.addresses = item.addresses;
 
               return company;
             }
@@ -89,6 +90,7 @@ export class CompanyProvider {
               let companies: any[] = [];
               for (var i = 0; i < data.rows.length; i++) {
                 var company = data.rows.item(i);
+                company.addresses = JSON.parse(company.addresses);
                 companies.push(company);
               }
               return companies;
@@ -126,4 +128,5 @@ export class Company {
   goJob: String;
   outJob: String;
   isMyActualJob: Boolean;
+  addresses: String;
 }

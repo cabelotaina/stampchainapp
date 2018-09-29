@@ -1,8 +1,8 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CompanyProvider, Company } from '../../providers/company/company';
-import { AddressProvider, Address } from '../../providers/address/address';
+import { ListCompanyPage } from '../../pages/list-company/list-company'
 
 declare var google;
 
@@ -13,77 +13,37 @@ declare var google;
 })
 export class AddCompanyPage {
 
-  @ViewChild('map') mapElement: ElementRef;
   map: any;
 
 	private GoogleAutocomplete;
 	private autocomplete;
 	private autocompleteItems;
 	private geocoder;
-	private markers;
 	public company: Company = { 
 		id: 0,
 		name: '', 
 		goJob: '', 
 		outJob: '', 
-		isMyActualJob: false
+		isMyActualJob: false,
+		addresses: ''
 	};
 
-	public addresses = Array<Address>();
+	public list_page;
 
+	public addresses = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-  	private geolocation: Geolocation, private zone: NgZone, private companyProvider: CompanyProvider,
-  	private addressProvider: AddressProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toastCtrl: ToastController,
+  	private geolocation: Geolocation, private zone: NgZone, private companyProvider: CompanyProvider) {
 		this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
 		this.autocomplete = { input: '' };
 		this.autocompleteItems = [];
 		this.geocoder = new google.maps.Geocoder;
-		this.markers = [];
+		this.list_page = ListCompanyPage;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddCompanyPage');
   }
-
-	ionViewDidEnter(){
-    this.geolocation.getCurrentPosition().then((position) => {
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    }, (err) => {
-      console.log(err);
-    });
-  }
-
-	addMarker(){
-	  let marker = new google.maps.Marker({
-	    map: this.map,
-	    animation: google.maps.Animation.DROP,
-	    position: this.map.getCenter()
-	  });
-	 
-	  let content = "<h4>Você trabalha aqui?</h4>";
-	 
-	  this.addInfoWindow(marker, content);
-	 
-	}
-
-	addInfoWindow(marker, content){
-	 
-	  let infoWindow = new google.maps.InfoWindow({
-	    content: content
-	  });
-	 
-	  google.maps.event.addListener(marker, 'click', () => {
-	    infoWindow.open(this.map, marker);
-	  });
-	 
-	}
 
 	updateSearchResults(){
 	  if (this.autocomplete.input == '') {
@@ -102,16 +62,12 @@ export class AddCompanyPage {
 	}
 
 	selectSearchResult(item){
-		console.log(item)
-	  // this.clearMarkers();
+		console.log(item);
+
 	  this.autocompleteItems = [];
 
 	  this.geocoder.geocode({'placeId': item.place_id}, (results, status) => {
 	    if(status === 'OK' && results[0]){
-	      let position = {
-	          lat: results[0].geometry.location.lat,
-	          lng: results[0].geometry.location.lng
-	      };
 
 	      this.addresses.push({
 	      	id: null,
@@ -119,49 +75,58 @@ export class AddCompanyPage {
 	      	latitude: results[0].geometry.location.lat(),
 	      	longitude: results[0].geometry.location.lng(),
 	      	company_id: null
-	      })
-
-	      // mapa que estava sendo usado
-
-	      // let marker = new google.maps.Marker({
-	      //   position: results[0].geometry.location,
-	      //   map: this.map,
-	      // });
-	      // this.markers.push(marker);
-	      // this.map.setCenter(results[0].geometry.location);
+	      });
 	    }
 	  })
   }
 
-  addCompany(){
-
+  addCompany(list_page){
   	// log de compania
   	console.log('Insert Company: '+JSON.stringify(this.company, null, 1));
+  	console.log('Insert Company: '+JSON.stringify(this.addresses, null, 1));
 
-  	if (this.company.isMyActualCompany){
+  	if (this.company.isMyActualJob){
   		this.company.outJob = null;
   	}
 
-  	// log de endereços
-  	console.log('Insert Addresses: '+JSON.stringify(this.addresses, null, 1));
-  	// adidionar companias 
-  	let company = this.companyProvider.insert(this.company);
+  	let messages = 'Por Favor';
+  	let error = false;
+  	if (this.company.name === '') {
+  		messages += ' preencha o nome da empresa. ';
+  		error = true;
+  	}
+  	if (this.company.goJob === ''){
+  		messages += ' preencha a data de ingresso na empresa.';
+  		error = true;
+  	}
+  	if (this.company.outJob === '' || !this.company.isMyActualJob){
+  		messages += ' preencha a data que você deixou a empresa.';
+  		error = true;
+  	}
 
-  	this.companyProvider.getLast().
-  	then((company_id: Number) => {
-  		// adicionar endereços
-	  	for (var i in this.addresses){
-	  		console.log(this.addresses);
+  	if (error){
+  		this.companyToast(messages);
+  	} else {
+	  	console.log('Insert Addresses: '+JSON.stringify(this.addresses, null, 1));
+	    this.company.addresses = JSON.stringify(this.addresses);
+	  	this.companyProvider.insert(this.company);
+	  	this.navCtrl.push(ListCompanyPage);
+  	}
 
-	  		let address = this.addresses[i];
-	  		address.company_id = company_id;
-	  		this.addressProvider.insert(address);
-	  	}
-  	});
-  	
-	  // limpar formulario
-  	// ir para a lista de empresas
+  }
 
+  companyToast(message) {
+	  let toast = this.toastCtrl.create({
+	    message: message,
+	    duration: 3000,
+	    position: 'top'
+	  });
+
+	  toast.onDidDismiss(() => {
+	    console.log('Dismissed toast');
+	  });
+
+	  toast.present();
   }
 
   removeAddress(address){

@@ -11,6 +11,9 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { HomePage } from '../pages/home/home';
 import { ListCompanyPage } from '../pages/list-company/list-company';
 import { DatabaseProvider } from '../providers/database/database'
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocationTracker } from '../providers/location-tracker/location-tracker';
+import { AddWalletPage } from '../pages/add-wallet/add-wallet';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,21 +24,27 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
   devPages: Array<{title: string, component: any}>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, dbProvider: DatabaseProvider) {
+  constructor(platform: Platform, statusBar: StatusBar,
+   dbProvider: DatabaseProvider, locationTracker: LocationTracker,
+    backgroundMode: BackgroundMode, private splashScreen: SplashScreen) {
+
+    splashScreen.show();
     platform.ready().then(() => {
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      backgroundMode.enable();
  
       //Criando o banco de dados // teste if db is already open
       dbProvider.createDatabase()
         .then(() => {
-          // fechando a SplashScreen somente quando o banco for criado
           splashScreen.hide();
+          // locationTracker.startTracking();
         })
         .catch(() => {
-          // ou se houver erro na criação do banco
           splashScreen.hide();
+          // locationTracker.startTracking();
         });
     });
 
@@ -45,6 +54,7 @@ export class MyApp {
       { title: 'Configurações', component: SettingsPage },
       { title: 'Listar Empresas', component: ListCompanyPage },
       { title: 'Adicionar Empresa', component: AddCompanyPage },
+      { title: 'Adicionar Carteira', component: AddWalletPage },
 
       // { title: 'Login', component: LoginPage },
       // { title: 'Register', component: RegisterPage }

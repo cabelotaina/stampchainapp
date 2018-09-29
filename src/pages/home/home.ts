@@ -1,26 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
-import { ControlPage } from '../../pages/control/control';
-import { PointsPage } from '../../pages/points/points';
-import { SettingsPage } from '../../pages/settings/settings';
-import { AddCompanyPage } from '../../pages/add-company/add-company';
-import { CalendarPage } from '../../pages/calendar/calendar';
-import { ListCompanyPage } from '../../pages/list-company/list-company';
+import {CalendarPage} from '../../pages/calendar/calendar'
+import {SettingsPage} from '../../pages/settings/settings'
+import {ListCompanyPage} from '../../pages/list-company/list-company'
+import {AddCompanyPage} from '../../pages/add-company/add-company'
+import {AddWalletPage} from '../../pages/add-wallet/add-wallet'
+
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
-	@ViewChild(Nav) nav: Nav;
- 	public calendar;
-  constructor() {
- 	  this.calendar = CalendarPage
+  public web3: any;
+  public calendar; settings; list_company; add_company; add_wallet;
+  public nav;
+
+  constructor(nav: NavController){
+    this.calendar = CalendarPage;
+    this.nav = nav;
+    this.settings = SettingsPage;
+    this.list_company = ListCompanyPage;
+    this.add_company = AddCompanyPage;
+    this.add_wallet = AddWalletPage;
+
   }
 
   goTo(page){
-  	console.log(page)
+  	console.log(page);
   	this.nav.setRoot(page);
   }
 }

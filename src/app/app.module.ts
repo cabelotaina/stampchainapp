@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import { IonicApp, IonicErrorHandler, IonicModule, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
  
 import { MyApp } from './app.component';
@@ -18,6 +17,8 @@ import { Page1 } from '../pages/tabs/page1';
 import { Page2 } from '../pages/tabs/page2';
 import { Page3 } from '../pages/tabs/page3';
 import { Page4 } from '../pages/tabs/page4';
+
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 // problemas para criar o update company
 // vou ter que colocar o endereço com company.addresses = JSON.stringify(addresses)
@@ -39,7 +40,11 @@ import { AddressProvider } from '../providers/address/address';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { Web3Provider } from '../providers/web3/web3';
+import { BlockchainProvider } from '../providers/blockchain/blockchain';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { AddWalletPage } from '../pages/add-wallet/add-wallet';
+import { HttpClientModule } from '@angular/common/http';
 
 registerLocaleData(localePt);
 
@@ -52,14 +57,15 @@ registerLocaleData(localePt);
     ControlPage,
     PointsPage,
     SettingsPage,
-    CalendarPage,
     AddCompanyPage,
     HomePage,
     ListCompanyPage,
     Page1,
     Page2,
     Page3,
-    Page4
+    Page4,
+    CalendarPage,
+    AddWalletPage,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +74,7 @@ registerLocaleData(localePt);
       name: '__mydb',
          driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    //CalendarModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -76,7 +82,6 @@ registerLocaleData(localePt);
     ControlPage,
     PointsPage,
     SettingsPage,
-    CalendarPage,
     AddCompanyPage,
     HomePage,
     ListCompanyPage,
@@ -84,14 +89,17 @@ registerLocaleData(localePt);
     Page2,
     Page3,
     Page4,
-    // UpdateCompanyPage
+    CalendarPage,
+    AddWalletPage,
   ],
   providers: [
+    ToastController,
+    SplashScreen,
+    BackgroundMode,
     LocationTracker,
     BackgroundGeolocation,
     Geolocation,
     StatusBar,
-    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PointProvider,
     DatePipe,
@@ -100,7 +108,7 @@ registerLocaleData(localePt);
     SQLite,
     DatabaseProvider,
     AddressProvider,
-    Web3Provider
+    BlockchainProvider
   ]
 })
 export class AppModule {}

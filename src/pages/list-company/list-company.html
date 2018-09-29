@@ -12,6 +12,22 @@
 
 <ion-content padding>
 
+    <ion-card *ngIf="!companies">
+      <ion-item (click)="open(add_company)">
+          <ion-icon name="ios-add-circle-outline" item-start large></ion-icon>
+          <h2>Você não tem empresas</h2>
+          <p>Clique aqui para adicionar uma nova empresa.</p>
+      </ion-item>
+    </ion-card>
+
+    <ion-card *ngIf="companies">
+      <ion-item (click)="open(add_company)">
+          <ion-icon name="ios-add-circle-outline" item-start large></ion-icon>
+          <h2>Adicione uma empresa</h2>
+          <p>Clique aqui!</p>
+      </ion-item>
+    </ion-card>
+
     <ion-card *ngFor="let item of companies">
  
       <ion-card-header>
@@ -19,7 +35,8 @@
       </ion-card-header>
  
       <ion-card-content>
-        <p><strong>{{ item.goJob }}</strong> -  <strong *ngIf="!item.isMyActualJob"> {{ item.outJob }} </strong><strong *ngIf="item.isMyActualJob"> até o momento</strong></p>
+        <p><strong>{{ item.goJob }}</strong> - <strong *ngIf="!item.isMyActualJob"> {{ item.outJob }} </strong><strong *ngIf="item.isMyActualJob"> até o momento</strong></p>
+        <p *ngFor="let address of item.addresses">{{address.description}}</p>
       </ion-card-content>
 
       <ion-row>
