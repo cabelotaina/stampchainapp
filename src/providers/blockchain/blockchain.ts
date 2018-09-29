@@ -27,7 +27,7 @@ export class BlockchainProvider {
   }
 
   createWallet(seed, password){
-  	this.http.post(this.address('/wallet/create'), {password: password})
+  	this.http.post(this.address('/wallet'), {password: password})
   	.subscribe(wallet => {
   		console.log(wallet);
 
