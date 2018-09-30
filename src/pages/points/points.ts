@@ -24,7 +24,7 @@ export class PointsPage {
   ionViewDidEnter() {
     this.pointProvider.getAll()
       .then((points) => {
-        // console.log('Points getAll: '+JSON.stringify(points, null, 1))
+        console.log('Points getAll: '+JSON.stringify(points, null, 1))
         this.points = points;
       });
   }

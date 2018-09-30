@@ -83,7 +83,7 @@ export class AddCompanyPage {
   addCompany(list_page){
   	// log de compania
   	console.log('Insert Company: '+JSON.stringify(this.company, null, 1));
-  	console.log('Insert Company: '+JSON.stringify(this.addresses, null, 1));
+  	console.log('Insert Addresses: '+JSON.stringify(this.addresses, null, 1));
 
   	if (this.company.isMyActualJob){
   		this.company.outJob = null;

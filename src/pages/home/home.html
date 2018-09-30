@@ -11,11 +11,31 @@
  
 <ion-content padding>
 
-  <!-- bem vindo -->
+  <ion-card>
+    <ion-card-header>
+      Bem vindo
+    </ion-card-header>
+    <ion-card-content>
+      <strong>Endereço da sua carteira: </strong>
+      <small>0x{{wallet.addresses[0]}}</small>
+      <br>
+      <strong>Seu segredo</strong>
+      <!-- <p>{{}}</p> -->
+
+    </ion-card-content>
+    <ion-item>
+      <button ion-button icon-start clear>
+        <ion-icon name="ios-cash-outline"></ion-icon>
+        + Ether
+      </button>
+      <button ion-button icon-start clear>
+        <ion-icon name="ios-download-outline"></ion-icon>
+        Baixar Carteira
+      </button>
+    </ion-item>
+  </ion-card>
 
   <!-- não possui uma carteira -->
-
-  <!-- mostrar endereço da carteira, olho para ver o salt -->
 
   <!-- se der tempo permitir trocar senha -->
 

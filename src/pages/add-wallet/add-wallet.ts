@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { BlockchainProvider } from '../../providers/blockchain/blockchain';
 
+import { HomePage } from '../../pages/home/home'
+
 @IonicPage()
 @Component({
   selector: 'page-add-wallet',
@@ -31,9 +33,10 @@ export class AddWalletPage {
   	} else if (this.content.word === '') {
   		this.walletToast('Você precisa fornecer a palavra geradora!');
   	}else {
-  		// adicionar carteira
   		console.log(this.content);
   		this.blockchainProvider.create(this.content);
+      this.walletToast('Carteira criada com sucesso!');
+      this.navCtrl.push(HomePage);
   	}
   }
 

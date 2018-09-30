@@ -1,43 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { UserProvider, User } from '../user/user'
+
 @Injectable()
 export class BlockchainProvider {
 
 	private api;
   private options
+  private user: User = {
+    id: 0,
+    password: '',
+    wallet: '',
+    seed: ''
+  }
 
-  constructor(public http: HttpClient) {
-    console.log('Hello BlockchainProvider Provider');
-    this.api = 'http://localhost:3000';
+  constructor(public http: HttpClient, private userProvider: UserProvider) {
+    this.api = 'http://51.15.225.121';
   }
 
   create(content){
   	// create seed
   	this.http.get(this.address('/seed/'+content.word))
-  	.subscribe(seed => {
-  		console.log(seed);
-  		// preciso criar uma tabela para armazenar essas infos
-  		// colunas ->  wallet, password, seed;
-
-  		this.createWallet(seed, content.password);
+  	.subscribe(response => {
+  		console.log(response);
+  		this.createWallet(response['seed'], content.password1);
   	}, error => {
   		console.error(error);
   	})
   }
 
   createWallet(seed, password){
-  	this.http.post(this.address('/wallet'), {password: password})
-  	.subscribe(wallet => {
-  		console.log(wallet);
+  	this.http.post(this.address('/wallet'), {password: password, seed: seed})
+  	.subscribe(response => {
+  		console.log(response);
 
-  		// armazenar a wallet do usuario
+      this.user.password = password;
+      this.user.wallet = JSON.stringify(response['wallet']);
+      this.user.seed = seed;
 
-  		// armazenar o hash da senha do usuario
-
-  		// voltar a home e mostrar o endereço da carteira o saldo e explicar como colocar dinheiro na carteira (coinbase)
-
-  		// posso colocar falcets e permitir que a galera use assim por hora.
+      this.userProvider.insert(this.user);
   		
   	}, error => {
   		console.error(error);

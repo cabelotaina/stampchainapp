@@ -48,6 +48,7 @@ export class DatabaseProvider {
     db.sqlBatch([
       ['CREATE TABLE IF NOT EXISTS companies (id integer primary key AUTOINCREMENT NOT NULL, name TEXT, goJob TEXT, outJob TEXT, isMyActualJob TEXT, addresses TEXT)'],
       ['CREATE TABLE IF NOT EXISTS points (id integer primary key AUTOINCREMENT NOT NULL, timestamp TEXT, latitude TEXT, longitude TEXT, type TEXT)'],
+      ['CREATE TABLE IF NOT EXISTS users (id integer primary key AUTOINCREMENT NOT NULL, password TEXT, wallet TEXT, seed TEXT)'],
     ])
       .then(() => console.log('Tabelas criadas'))
       .catch(e => console.error('Erro ao criar as tabelas', e));

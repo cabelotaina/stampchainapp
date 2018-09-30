@@ -45,6 +45,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AddWalletPage } from '../pages/add-wallet/add-wallet';
 import { HttpClientModule } from '@angular/common/http';
+import { UserProvider } from '../providers/user/user';
+
+import { ReportPage } from '../pages/report/report'
+
 
 registerLocaleData(localePt);
 
@@ -66,6 +70,7 @@ registerLocaleData(localePt);
     Page4,
     CalendarPage,
     AddWalletPage,
+    ReportPage
   ],
   imports: [
     BrowserModule,
@@ -91,6 +96,7 @@ registerLocaleData(localePt);
     Page4,
     CalendarPage,
     AddWalletPage,
+    ReportPage
   ],
   providers: [
     ToastController,
@@ -108,7 +114,10 @@ registerLocaleData(localePt);
     SQLite,
     DatabaseProvider,
     AddressProvider,
-    BlockchainProvider
+    BlockchainProvider,
+    UserProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+    ngOn
+}

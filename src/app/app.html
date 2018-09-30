@@ -19,3 +19,6 @@
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-fab bottom right > <!--*ngIf="isOuthome"-->
+ <button (click)="goHome()" ion-fab><ion-icon name="home"></ion-icon></button>
+</ion-fab>
