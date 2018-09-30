@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Report</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Extrato de horas</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
+<ion-card *ngFor="let company of reports">
+  <ion-card-header>
+    {{company.name | titlecase}}
+  </ion-card-header>
+  <ion-card-content>
+  	<p *ngFor="let month of company.months">Você trabalhou {{month.hour}} hora(s) e {{month.minute}} minuto(s) e {{month.second}} segundo(s) no mês de {{month.name}}.
+    </p>
+  </ion-card-content>
+</ion-card>
 </ion-content>

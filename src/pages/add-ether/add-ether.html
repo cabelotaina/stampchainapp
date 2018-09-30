@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>AddEther</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<!-- temos que pegar o endereço da carteira-->
+	<p>Este sistema funciona utilizando uma Test Net da rede etherium, para você conseguir usar nós já demos o primeiro passo que foi criar uma carteira para você. No entanto você não possui saldo em sua carteira. Para colocar saldo usando a TestNet da RimkeBy é muito simples basta fazer clicar aqui <a href="https://twitter.com/intent/tweet?text=Requesting%20faucet%20funds%20into%200x0000000000000000000000000000000000000000%20on%20the%20%23Rinkeby%20%23Ethereum%20test%20network.">e twittar</a></p>
+	<p> Depois copie o endereço do twitt e coloque na seguinte <a href="https://faucet.rinkeby.io/">página</a>. Logo os fake ethers (faucets) caem na sua carteira e você pode começar a usar o sistema</p>
+
+	<p> Se quiser usar o sistema para valer, precisa mudar da rinkeby, uma test net para a MainNet. Faça isso abaixo</p>
+
+	<ion-item>
+	  <ion-label>EVM Net</ion-label>
+	  <ion-select [(ngModel)]="evm">
+	    <ion-option value="rinkeby" selected>Rinke By</ion-option>
+	    <ion-option value="main">MainNet</ion-option>
+	  </ion-select>
+	</ion-item>
+
+
+</ion-content>

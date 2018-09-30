@@ -120,6 +120,11 @@ export class CompanyProvider {
       })
       .catch((e) => console.error(e));
   }
+
+  public getFakeCompanies(){
+    return [{name: 'recanta dos paes', goJob: '2018/09/01', outJob: null, isMyActualJob: true, addresses: JSON.stringify({latitude: '-27.682751', longitude: '-48.491219'})}]
+    // , { name: 'INE', goJob: '2018/09/01', isMyActualJob: false, outJob: '2018/09/30', addresses: JSON.stringify({latitude: '-27.600432', longitude: '-48.518580'})}]
+  }
 }
 
 export class Company {

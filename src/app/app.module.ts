@@ -49,6 +49,8 @@ import { UserProvider } from '../providers/user/user';
 
 import { ReportPage } from '../pages/report/report'
 
+import { AddEtherPage } from '../pages/add-ether/add-ether'
+
 
 registerLocaleData(localePt);
 
@@ -70,7 +72,8 @@ registerLocaleData(localePt);
     Page4,
     CalendarPage,
     AddWalletPage,
-    ReportPage
+    ReportPage,
+    AddEtherPage
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ registerLocaleData(localePt);
     Page4,
     CalendarPage,
     AddWalletPage,
-    ReportPage
+    ReportPage,
+    AddEtherPage
   ],
   providers: [
     ToastController,
@@ -118,6 +122,4 @@ registerLocaleData(localePt);
     UserProvider
   ]
 })
-export class AppModule {
-    ngOn
-}
+export class AppModule {}

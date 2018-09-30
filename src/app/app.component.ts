@@ -17,14 +17,14 @@ import { DatabaseProvider } from '../providers/database/database'
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocationTracker } from '../providers/location-tracker/location-tracker';
 import { AddWalletPage } from '../pages/add-wallet/add-wallet';
-import {} from '../pages/report/report'
+import { ReportPage } from '../pages/report/report'
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage:any = HomePage;
+  rootPage:any = ReportPage;
   pages: Array<{title: string, component: any}>;
   devPages: Array<{title: string, component: any}>;
 
@@ -62,8 +62,8 @@ export class MyApp {
 
     this.pages = [
       { title: 'Principal', component: HomePage },
-      { title: 'Relatório', component: CalendarPage },
-      { title: 'Configurações', component: SettingsPage },
+      { title: 'Relatório', component: ReportPage },
+      // { title: 'Configurações', component: SettingsPage },
       { title: 'Listar Empresas', component: ListCompanyPage },
       { title: 'Adicionar Empresa', component: AddCompanyPage },
       { title: 'Adicionar Carteira', component: AddWalletPage },
